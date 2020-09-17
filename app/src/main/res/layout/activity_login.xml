@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundSiemens"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+
+        <!-- Logo Siemens -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/siemens_logo_white"
+            android:paddingTop="40dp"
+            android:paddingBottom="50dp" />
+
+        <!-- Login/Email -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login : "/>
+        <EditText
+            android:id="@+id/et_login_loginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+
+        <!-- Password -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password : "
+            android:paddingTop="10dp" />
+        <EditText
+            android:id="@+id/et_login_password"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- //// Button //// -->
+        <!-- LOG IN -->
+        <Button
+            android:id="@+id/bt_login_logIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Log in"
+            android:onClick="f"/>
+    </TableLayout>
+</LinearLayout>
