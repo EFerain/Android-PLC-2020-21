@@ -26,7 +26,7 @@
     <!-- //// PLC : Programmable Logic Controller //// -->
     <!-- Gestion des automates -->
     <Button
-        android:id="@+id/bt_menuAdmin_plcManagement"
+        android:id="@+id/bt_menu_plcManagement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PLC Management"
@@ -37,23 +37,21 @@
 
     <!-- //// Gestion des comptes utilisateurs //// -->
     <Button
-        android:id="@+id/bt_menuAdmin_manageUsers"
+        android:id="@+id/bt_menu_manageUsers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Manage users"
         android:padding="20dp"
-        android:visibility="gone"
-        android:onClick="onMenuAdminClickManager"/>
+        android:visibility="gone" />
 
     <!-- //// Gestion du compte //// -->
     <!-- Settings -->
     <Button
-        android:id="@+id/bt_menuAdmin_accountSettings"
+        android:id="@+id/bt_menu_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:padding="20dp"
-        android:onClick="onMenuAdminClickManager"/>
+        android:padding="20dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,12 +62,12 @@
 
         <!-- Se déconnecter -->
         <Button
-            android:id="@+id/bt_menuAdmin_signOut"
+            android:id="@+id/bt_menu_signOut"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"
             android:text="Sign out"
-            android:onClick="onMenuAdminClickManager"/>
+            android:onClick="f"/>
 
     </LinearLayout>
 </LinearLayout>

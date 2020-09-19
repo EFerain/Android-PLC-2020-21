@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Login : "/>
     <EditText
-        android:id="@+id/et_login_loginEmail"
+        android:id="@+id/et_login_loginMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"/>
