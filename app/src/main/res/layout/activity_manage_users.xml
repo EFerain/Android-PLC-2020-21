@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackgroundSiemens"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:text="Manage users"
+            android:textColor="@color/colorText"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
+            android:textSize="35sp" />
+    </LinearLayout>
+
+    <!-- Afficher les users déjà existant -->
+    <TableLayout
+        android:id="@+id/tl_ManageUsers_users"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="0,1">
+    </TableLayout>
+
+</LinearLayout>

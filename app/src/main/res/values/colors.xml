@@ -7,5 +7,5 @@
     <color name="colorCancelButton">#BB0000</color>
     <color name="colorBackgroundSiemens">#009999</color>
     <color name="colorDivider">#000000</color>
-    <color name="colorEditText">#FFFFFF</color>
+    <color name="colorText">#FFFFFF</color>
 </resources>

@@ -3,99 +3,110 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="match_parent"
     android:orientation="vertical"
     android:background="@color/colorBackgroundSiemens"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
-    <TableLayout
+    <!-- Logo Siemens -->
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:src="@drawable/siemens_logo_white" />
 
-        <!-- Logo Siemens -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/siemens_logo_white" />
+    <!-- Welcoming Message -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome !"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:paddingBottom="30dp" />
 
-        <!-- Welcoming Message -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Welcome !"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:paddingBottom="30dp" />
+    <!-- Login/Email -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login/Email : " />
 
-        <!-- Login/Email -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login/Email : " />
+    <EditText
+        android:id="@+id/et_createUser_loginEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"/>
 
-        <EditText
-            android:id="@+id/et_createUser_loginEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:background="@color/colorEditText"/>
+    <!-- Last Name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last name : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_createUser_lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <!-- Last Name -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Last name : "
-            android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/et_createUser_lastName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <!-- First name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First name : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_createUser_firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <!-- First name -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="First name : "
-            android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/et_createUser_firstName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <!-- Password -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_createUser_password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-        <!-- Password -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Password : "
-            android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/et_createUser_password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <!-- Confirm password -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm password : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_createUser_confirmPassword"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp" />
 
-        <!-- Confirm password -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Confirm password : "
-            android:paddingTop="10dp" />
-        <EditText
-            android:id="@+id/et_createUser_confirmPassword"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp" />
+    <!-- Is Super User -->
+    <CheckBox
+        android:id="@+id/cb_createUser_isSuperUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Is Super User"
+        android:layout_marginBottom="-8dp"
+        android:visibility="gone"
+        android:checked="false"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <!-- Button CREATE ACCOUNT -->
         <Button
             android:id="@+id/bt_createUser_createAccount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create account"
             android:padding="20dp"
             android:onClick="f" />
-    </TableLayout>
+
+    </LinearLayout>
 </LinearLayout>
