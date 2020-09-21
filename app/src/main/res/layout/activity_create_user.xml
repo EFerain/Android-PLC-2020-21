@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:text="Create account"
             android:padding="20dp"
-            android:onClick="f" />
+            android:onClick="onCreateUserClickManager" />
 
     </LinearLayout>
 </LinearLayout>

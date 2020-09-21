@@ -3,6 +3,7 @@ package be.heh.feraine_projetandroid.database;
 public class User
 {
     // ======== Attributs ========
+    private int id;
     private String loginMail;
     private String password;
     private String firstName;
@@ -15,8 +16,9 @@ public class User
         // VOID
     }
 
-    private User(String _loginMail, String _password, String _firstName, String _lastName, int _privilege)
+    private User(int _id, String _loginMail, String _password, String _firstName, String _lastName, int _privilege)
     {
+        this.id = _id;
         this.loginMail = _loginMail;
         this.password = _password;
         this.firstName = _firstName;
@@ -25,6 +27,16 @@ public class User
     }
 
     // ======== Accesseurs & modificateurs ========
+    // id
+    public int getId()
+    {
+        return this.id;
+    }
+    public void setId(int _id)
+    {
+        this.id = _id;
+    }
+
     // loginMail
     public String getLoginMail()
     {
