@@ -11,12 +11,12 @@ public class User
     private int privilege;  // 0 -> lecture seul / 1 -> lecture et écriture
 
     // ======== Constructeur ========
-    private User()
+    public User()
     {
         // VOID
     }
 
-    private User(int _id, String _loginMail, String _password, String _firstName, String _lastName, int _privilege)
+    public User(int _id, String _loginMail, String _password, String _firstName, String _lastName, int _privilege)
     {
         this.id = _id;
         this.loginMail = _loginMail;

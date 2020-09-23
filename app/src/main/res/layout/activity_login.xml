@@ -48,6 +48,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Log in"
-        android:onClick="f"/>
+        android:onClick="onLoginClickManager"/>
 
 </LinearLayout>

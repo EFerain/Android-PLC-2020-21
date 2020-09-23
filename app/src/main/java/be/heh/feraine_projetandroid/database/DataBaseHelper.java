@@ -2,6 +2,7 @@ package be.heh.feraine_projetandroid.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -44,7 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
     // ======== METHODES ========
-    // Add User
+    // ---- Add User ----
     public void addUser(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase(); // Write into DB
@@ -58,5 +59,31 @@ public class DataBaseHelper extends SQLiteOpenHelper
         cv.put(COLUMN_PRIVILEGE, user.getPrivilege());
 
         db.insert(USER_TABLE, null, cv);
+    }
+
+    // ---- Delete User ----
+    public void deleteUser(User user)
+    {
+        // TODO
+    }
+
+    // ---- Update User ----
+
+    // ---- Get User with Login/Mail ----
+    public Cursor getUser(String mail)
+    {
+        // TODO
+
+        return null;
+    }
+
+    // ---- Get All User ----
+    public Cursor getAllUsers()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TABLE, null);
+
+        return cursor;
     }
 }
