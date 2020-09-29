@@ -2,6 +2,7 @@ package be.heh.feraine_projetandroid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -57,13 +58,7 @@ public class CreateUser extends AppCompatActivity
         {
             // ==== Create Account ====
             case R.id.bt_createUser_createAccount:
-                DataBaseHelper db = new DataBaseHelper(this);
-
-                this.user.setLoginMail(this.et_createUser_loginMail.getText().toString());
-                this.user.setPassword(this.et_createUser_password.getText().toString());
-                this.user.setFirstName(this.et_createUser_firstName.getText().toString());
-                this.user.setLastName(this.et_createUser_lastName.getText().toString());
-
+                /* TODO
                 // -- If first start --
                 if(getIntent().getBooleanExtra("SuperUser", false))
                 {
@@ -73,6 +68,7 @@ public class CreateUser extends AppCompatActivity
                 {
                     user.setPrivilege(0);
                 }
+                */
 
                 // -- If missing field(s) --
                 if(this.et_createUser_loginMail.getText().toString().isEmpty() ||
@@ -82,30 +78,51 @@ public class CreateUser extends AppCompatActivity
                 this.et_createUser_confirmPassword.getText().toString().isEmpty())
                 {
                     Toast.makeText(getApplicationContext(), "Missing fields !", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 // -- If password != confirmPassword --
                 if(!this.et_createUser_password.getText().toString().equals(this.et_createUser_confirmPassword.getText().toString()))
                 {
                     Toast.makeText(this, "Passwords are different", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                // -- If password < 4 ? --
+                // -- If password < 4 characters --
                 if(this.et_createUser_password.getText().toString().length() < 4)
                 {
-                    Toast.makeText(getApplicationContext(), "Password is too short. Please enter a password with at least 4 ?",
+                    Toast.makeText(getApplicationContext(), "Password is too short. Please enter a password with at least 4 characters",
                             Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 // -- If user is already existing --
                 if(dataBaseHelper.getUser(this.et_createUser_loginMail.getText().toString()) != null)
                 {
                     Toast.makeText(getApplicationContext(), "Error : User already exists", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
+                this.user.setLoginMail(this.et_createUser_loginMail.getText().toString());
+                this.user.setPassword(this.et_createUser_password.getText().toString());
+                this.user.setFirstName(this.et_createUser_firstName.getText().toString());
+                this.user.setLastName(this.et_createUser_lastName.getText().toString());
+
+                dataBaseHelper.addUser(this.user);
+
+                // Go to Menu.class
                 Intent menu = new Intent(this, Menu.class);
                 startActivity(menu);
                 finish();
+
+                // Go to Login.class
+                /*
+                Intent login = new Intent(this, Login.class);
+                startActivity(login);
+                finish();
+                */
+
+                break;
         }
     }
 }

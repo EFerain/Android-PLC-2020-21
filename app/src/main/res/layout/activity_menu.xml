@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"
             android:text="Sign out"
-            android:onClick="f"/>
+            android:onClick="onMenuClickManager"/>
 
     </LinearLayout>
 </LinearLayout>

@@ -1,13 +1,18 @@
 package be.heh.feraine_projetandroid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 import be.heh.feraine_projetandroid.database.DataBaseHelper;
 import be.heh.feraine_projetandroid.database.User;
@@ -23,8 +28,6 @@ public class Login extends AppCompatActivity
     // Database
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
-    private User user = new User();
-
     // ======== onCreate ========
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,14 +41,30 @@ public class Login extends AppCompatActivity
 
         this.bt_login_logIn = findViewById(R.id.bt_login_logIn);
 
-        this.user = new User();
-
+        // ==== SUPER USER ====
         // If db is empty -> create Super User
-        if(this.dataBaseHelper.getAllUsers().getCount() == 0)
+        if(this.dataBaseHelper.getAllUsers() == null)
         {
-            Intent createUser = new Intent(this, CreateUser.class);
-            createUser.putExtra("superUser", true);
-            startActivity(createUser);
+            // Message Box
+            AlertDialog.Builder firstTime = new AlertDialog.Builder(this);
+
+            firstTime.setTitle("Welcome !")
+                    .setMessage("Since it's your first time here, you first must create an account.")
+                    .setPositiveButton("Let's do this", new DialogInterface.OnClickListener()
+                    {
+                        // Click on positive button
+                        @Override
+                        public void onClick(DialogInterface dialog, int which)
+                        {
+                            // Create user
+                            Intent createUser = new Intent(Login.this, CreateUser.class);
+                            createUser.putExtra("superUser", true);
+                            startActivity(createUser);
+                            finish();
+                        }
+                    })
+                    .create()
+                    .show();
         }
     }
 
@@ -63,12 +82,15 @@ public class Login extends AppCompatActivity
                 }
                 else
                 {
+                    User user = this.dataBaseHelper.getUser(this.et_login_loginMail.getText().toString());
+
                     try
                     {
-                        if(this.user.getLoginMail().equals(this.et_login_loginMail.getText().toString()))
+                        if(user.getLoginMail().equals(this.et_login_loginMail.getText().toString()))
                         {
-                            if(this.user.getPassword().equals(this.et_login_password.getText().toString()))
+                            if(user.getPassword().equals(this.et_login_password.getText().toString()))
                             {
+                                // Go to Menu.class
                                 Intent menu = new Intent(this, Menu.class);
                                 startActivity(menu);
                                 finish();
@@ -86,6 +108,7 @@ public class Login extends AppCompatActivity
                         Toast.makeText(this, "Error : user not found", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
         }
     }
 }

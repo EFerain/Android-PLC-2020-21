@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
+import java.util.ArrayList;
 
 public class DataBaseHelper extends SQLiteOpenHelper
 {
@@ -20,7 +20,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String COLUMN_PRIVILEGE = "privilege";
 
 
-    public DataBaseHelper(@Nullable Context context)
+    public DataBaseHelper(Context context)
     {
         super(context, "user.db", null, 1);
     }
@@ -28,20 +28,31 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
+        /*  // TODO
         db.execSQL("CREATE TABLE " + USER_TABLE + " (" +
-                COLUMN_ID + " TEXT PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_LOGINMAIL + " TEXT NOT NULL, " +
                 COLUMN_PASSWORD + " TEXT NOT NULL, " +
                 COLUMN_FIRSTNAME + " TEXT NOT NULL, " +
                 COLUMN_LASTNAME + " TEXT NOT NULL, " +
                 COLUMN_PRIVILEGE + " INTEGER NOT NULL );"
+         */
+
+        // SANS PRIVILEGE
+        db.execSQL("CREATE TABLE " + USER_TABLE + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_LOGINMAIL + " TEXT NOT NULL, " +
+                COLUMN_PASSWORD + " TEXT NOT NULL, " +
+                COLUMN_FIRSTNAME + " TEXT NOT NULL, " +
+                COLUMN_LASTNAME + " TEXT NOT NULL );"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-
+        db.execSQL("DROP TABLE IF EXISTS " + USER_TABLE);
+        onCreate(db);
     }
 
     // ======== METHODES ========
@@ -56,7 +67,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         cv.put(COLUMN_PASSWORD, user.getPassword());
         cv.put(COLUMN_FIRSTNAME, user.getFirstName());
         cv.put(COLUMN_LASTNAME, user.getLastName());
-        cv.put(COLUMN_PRIVILEGE, user.getPrivilege());
+        //TODO cv.put(COLUMN_PRIVILEGE, user.getPrivilege());
 
         db.insert(USER_TABLE, null, cv);
     }
@@ -68,22 +79,72 @@ public class DataBaseHelper extends SQLiteOpenHelper
     }
 
     // ---- Update User ----
-
-    // ---- Get User with Login/Mail ----
-    public Cursor getUser(String mail)
+    public void updateUser(User user)
     {
         // TODO
+    }
 
-        return null;
+    // ---- Get User with Login/Mail ----
+    public User getUser(String mail)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TABLE + " WHERE " + COLUMN_LOGINMAIL + " IS " + "'" + mail + "';", null);
+
+        // If user doesn't exist
+        if(cursor.getCount() == 0)
+        {
+            cursor.close();
+            return null;
+        }
+
+        // If user exists
+        cursor.moveToFirst();
+        User user = new User();
+
+        user.setId(cursor.getInt(0));
+        user.setLoginMail(cursor.getString(1));
+        user.setPassword(cursor.getString(2));
+        user.setFirstName(cursor.getString(3));
+        user.setLastName(cursor.getString(4));
+        // user.setPrivilege(cursor.getInt(5));
+
+        cursor.close();
+
+        return user;
     }
 
     // ---- Get All User ----
-    public Cursor getAllUsers()
+    public ArrayList<User> getAllUsers()
     {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + USER_TABLE, null);
+        ArrayList<User> users = new ArrayList<>();
 
-        return cursor;
+        // If db is empty
+        if(cursor.getCount() == 0)
+        {
+            cursor.close();
+            return null;
+        }
+
+        while(cursor.moveToNext())
+        {
+            User user = new User();
+
+            user.setId(cursor.getInt(0));
+            user.setLoginMail(cursor.getString(1));
+            user.setPassword(cursor.getString(2));
+            user.setFirstName(cursor.getString(3));
+            user.setLastName(cursor.getString(4));
+            // user.setPrivilege(cursor.getInt(5));
+
+            users.add(user);
+        }
+
+        cursor.close();
+
+        return users;
     }
 }
