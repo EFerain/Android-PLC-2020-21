@@ -19,19 +19,8 @@
         </activity>
         <activity android:name=".CreateUser"/>
         <activity android:name=".Menu"/>
-
-
-        <!--
-        <activity android:name=".Login"/>
-        <activity android:name=".CreateUser">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Menu"/>
-        -->
+        <activity android:name=".ManageUsers"/>
+        <activity android:name=".Settings"/>
 
     </application>
 

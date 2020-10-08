@@ -17,7 +17,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String COLUMN_PASSWORD = "password";
     public static final String COLUMN_FIRSTNAME = "firstname";
     public static final String COLUMN_LASTNAME = "lastname";
-    public static final String COLUMN_PRIVILEGE = "privilege";
+    public static final String COLUMN_PRIVILEGE = "privilege";  // 1 -> Super User (R/W) || 0 -> User (R)
 
 
     public DataBaseHelper(Context context)
@@ -28,7 +28,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        /*  // TODO
         db.execSQL("CREATE TABLE " + USER_TABLE + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_LOGINMAIL + " TEXT NOT NULL, " +
@@ -36,8 +35,9 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 COLUMN_FIRSTNAME + " TEXT NOT NULL, " +
                 COLUMN_LASTNAME + " TEXT NOT NULL, " +
                 COLUMN_PRIVILEGE + " INTEGER NOT NULL );"
-         */
+        );
 
+        /*
         // SANS PRIVILEGE
         db.execSQL("CREATE TABLE " + USER_TABLE + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -46,6 +46,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 COLUMN_FIRSTNAME + " TEXT NOT NULL, " +
                 COLUMN_LASTNAME + " TEXT NOT NULL );"
         );
+        */
     }
 
     @Override
@@ -67,7 +68,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         cv.put(COLUMN_PASSWORD, user.getPassword());
         cv.put(COLUMN_FIRSTNAME, user.getFirstName());
         cv.put(COLUMN_LASTNAME, user.getLastName());
-        //TODO cv.put(COLUMN_PRIVILEGE, user.getPrivilege());
+        cv.put(COLUMN_PRIVILEGE, user.getPrivilege());
 
         db.insert(USER_TABLE, null, cv);
     }
@@ -75,13 +76,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
     // ---- Delete User ----
     public void deleteUser(User user)
     {
-        // TODO
+        // TODO deleteUser
     }
 
     // ---- Update User ----
     public void updateUser(User user)
     {
-        // TODO
+        // TODO updateUser
     }
 
     // ---- Get User with Login/Mail ----
@@ -107,7 +108,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         user.setPassword(cursor.getString(2));
         user.setFirstName(cursor.getString(3));
         user.setLastName(cursor.getString(4));
-        // user.setPrivilege(cursor.getInt(5));
+        user.setPrivilege(cursor.getInt(5));
 
         cursor.close();
 
@@ -138,7 +139,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
             user.setPassword(cursor.getString(2));
             user.setFirstName(cursor.getString(3));
             user.setLastName(cursor.getString(4));
-            // user.setPrivilege(cursor.getInt(5));
+            user.setPrivilege(cursor.getInt(5));
 
             users.add(user);
         }

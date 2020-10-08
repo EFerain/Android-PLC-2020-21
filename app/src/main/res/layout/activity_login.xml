@@ -44,10 +44,20 @@
     <!-- LOG IN -->
     <Button
         android:id="@+id/bt_login_logIn"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Log in"
+        android:onClick="onLoginClickManager"/>
+
+    <!-- Create User -->
+    <Button
+        android:id="@+id/bt_login_createUser"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Log in"
+        android:text="Create User"
         android:onClick="onLoginClickManager"/>
 
 </LinearLayout>

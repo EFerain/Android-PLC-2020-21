@@ -58,18 +58,6 @@ public class CreateUser extends AppCompatActivity
         {
             // ==== Create Account ====
             case R.id.bt_createUser_createAccount:
-                /* TODO
-                // -- If first start --
-                if(getIntent().getBooleanExtra("SuperUser", false))
-                {
-                    user.setPrivilege(1);
-                }
-                else
-                {
-                    user.setPrivilege(0);
-                }
-                */
-
                 // -- If missing field(s) --
                 if(this.et_createUser_loginMail.getText().toString().isEmpty() ||
                 this.et_createUser_firstName.getText().toString().isEmpty() ||
@@ -103,12 +91,25 @@ public class CreateUser extends AppCompatActivity
                     return;
                 }
 
+                // -- Create User --
                 this.user.setLoginMail(this.et_createUser_loginMail.getText().toString());
                 this.user.setPassword(this.et_createUser_password.getText().toString());
                 this.user.setFirstName(this.et_createUser_firstName.getText().toString());
                 this.user.setLastName(this.et_createUser_lastName.getText().toString());
 
+                // If db is empty -> create Super User with R/W privileges (1)
+                if(this.dataBaseHelper.getAllUsers() == null)
+                {
+                    this.user.setPrivilege(1);   // Super User
+                }
+                else
+                {
+                    this.user.setPrivilege(0);   // User
+                }
+
                 dataBaseHelper.addUser(this.user);
+
+                Log.e("Testi", "Privilege " + this.user.getPrivilege());
 
                 // Go to Menu.class
                 Intent menu = new Intent(this, Menu.class);

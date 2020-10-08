@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ public class Login extends AppCompatActivity
     private EditText et_login_password;
 
     private Button bt_login_logIn;
+    private Button bt_login_createUser;
 
     // Database
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity
         this.et_login_password = findViewById(R.id.et_login_password);
 
         this.bt_login_logIn = findViewById(R.id.bt_login_logIn);
+        this.bt_login_createUser = findViewById(R.id.bt_login_createUser);
 
         // ==== SUPER USER ====
         // If db is empty -> create Super User
@@ -63,6 +66,7 @@ public class Login extends AppCompatActivity
                             finish();
                         }
                     })
+                    .setCancelable(false)
                     .create()
                     .show();
         }
@@ -75,10 +79,11 @@ public class Login extends AppCompatActivity
         {
             // ==== Log In ====
             case R.id.bt_login_logIn:
-                // If Login is empty
+                // -- If Login is empty --
                 if(this.et_login_loginMail.getText().toString().isEmpty())
                 {
-                    Toast.makeText(this, "Invalid login/mail", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(this, "Invalid login/mail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Invalid login and/or password", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -90,24 +95,36 @@ public class Login extends AppCompatActivity
                         {
                             if(user.getPassword().equals(this.et_login_password.getText().toString()))
                             {
+                                Log.e("Testi", "Privilege : " + user.getPrivilege() + " // " + "User : " + user.getLoginMail());
+
                                 // Go to Menu.class
                                 Intent menu = new Intent(this, Menu.class);
+                                menu.putExtra("userData", user);
                                 startActivity(menu);
                                 finish();
                             }
-                            // Wrong password
+                            // -- Wrong password --
                             else
                             {
-                                Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(this, "Invalid password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Invalid login and/or password", Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     }
-                    // User not found
+                    // -- User not found --
                     catch (Exception e)
                     {
                         Toast.makeText(this, "Error : user not found", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
+
+            // ==== Create User ====
+            case R.id.bt_login_createUser:
+                Intent createUser = new Intent(this, CreateUser.class);
+                startActivity(createUser);
+
                 break;
         }
     }

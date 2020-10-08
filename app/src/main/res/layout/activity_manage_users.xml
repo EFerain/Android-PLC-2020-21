@@ -26,23 +26,23 @@
     </LinearLayout>
 
     <!-- Users list -->
-    <TableLayout
-        android:id="@+id/tl_manageUsers_users"
+    <ListView
+        android:id="@+id/lv_manageUsers_usersList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="0,1">
-    </TableLayout>
-
-    <View style="@style/Divider"/>
+    </ListView>
 
     <!-- //// BUTTON //// -->
     <!-- Add new user -->
+    <!-- TODO Button fixe en bas à droite -->
     <Button
         android:id="@+id/bt_manageUsers_addNewUser"
-        android:layout_marginTop="20dp"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Add new user" />
+        android:layout_gravity="bottom|right"
+
+        android:text="+"
+        android:onClick="onManageUsersClickManager"/>
 
 </LinearLayout>

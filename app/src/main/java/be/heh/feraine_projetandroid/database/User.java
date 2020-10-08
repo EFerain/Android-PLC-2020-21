@@ -1,6 +1,8 @@
 package be.heh.feraine_projetandroid.database;
 
-public class User
+import java.io.Serializable;
+
+public class User implements Serializable
 {
     // ======== Attributs ========
     private int id;
