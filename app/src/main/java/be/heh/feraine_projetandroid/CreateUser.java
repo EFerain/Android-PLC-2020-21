@@ -16,14 +16,12 @@ import be.heh.feraine_projetandroid.database.User;
 
 public class CreateUser extends AppCompatActivity
 {
-    // ======== Attributs ========
+    /** ======== Attributs ======== **/
     private EditText et_createUser_loginMail;
     private EditText et_createUser_firstName;
     private EditText et_createUser_lastName;
     private EditText et_createUser_password;
     private EditText et_createUser_confirmPassword;
-
-    private CheckBox cb_createUser_isSuperUser;
 
     private Button bt_createUser_createAccount;
 
@@ -32,7 +30,7 @@ public class CreateUser extends AppCompatActivity
 
     private User user = new User();
 
-    // ======== onCreate ========
+    /** ======== onCreate ======== **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -46,19 +44,17 @@ public class CreateUser extends AppCompatActivity
         this.et_createUser_password = findViewById(R.id.et_createUser_password);
         this.et_createUser_confirmPassword = findViewById(R.id.et_createUser_confirmPassword);
 
-        this.cb_createUser_isSuperUser = findViewById(R.id.cb_createUser_isSuperUser);
-
         this.bt_createUser_createAccount = findViewById(R.id.bt_createUser_createAccount);
     }
 
-    // ======== onClickManager ========
+    /** ======== onClickManager ======== **/
     public void onCreateUserClickManager(View v)
     {
         switch(v.getId())
         {
-            // ==== Create Account ====
+            // ======== Create Account ========
             case R.id.bt_createUser_createAccount:
-                // -- If missing field(s) --
+                // ==== If missing field(s) ====
                 if(this.et_createUser_loginMail.getText().toString().isEmpty() ||
                 this.et_createUser_firstName.getText().toString().isEmpty() ||
                 this.et_createUser_lastName.getText().toString().isEmpty() ||
@@ -69,6 +65,7 @@ public class CreateUser extends AppCompatActivity
                     return;
                 }
 
+                // ==== Password ====
                 // -- If password != confirmPassword --
                 if(!this.et_createUser_password.getText().toString().equals(this.et_createUser_confirmPassword.getText().toString()))
                 {
@@ -84,23 +81,23 @@ public class CreateUser extends AppCompatActivity
                     return;
                 }
 
-                // -- If user is already existing --
+                // ==== If user is already existing ====
                 if(dataBaseHelper.getUser(this.et_createUser_loginMail.getText().toString()) != null)
                 {
                     Toast.makeText(getApplicationContext(), "Error : User already exists", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // -- Create User --
+                // ==== Create User ====
                 this.user.setLoginMail(this.et_createUser_loginMail.getText().toString());
                 this.user.setPassword(this.et_createUser_password.getText().toString());
                 this.user.setFirstName(this.et_createUser_firstName.getText().toString());
                 this.user.setLastName(this.et_createUser_lastName.getText().toString());
 
-                // If db is empty -> create Super User with R/W privileges (1)
+                // -- If db is empty -> create Super User (2) --
                 if(this.dataBaseHelper.getAllUsers() == null)
                 {
-                    this.user.setPrivilege(1);   // Super User
+                    this.user.setPrivilege(2);   // Super User
                 }
                 else
                 {
@@ -109,12 +106,24 @@ public class CreateUser extends AppCompatActivity
 
                 dataBaseHelper.addUser(this.user);
 
-                Log.e("Testi", "Privilege " + this.user.getPrivilege());
+                Log.e("Testi", "Privilege " + this.user.getPrivilege());    // TODO Log
 
-                // Go to Menu.class
-                Intent menu = new Intent(this, Menu.class);
-                startActivity(menu);
-                finish();
+                if(getIntent().getBooleanExtra("fromManageUsers", false))
+                {
+                    Intent manageUsers = new Intent(this, ManageUsers.class);
+                    manageUsers.putExtra("userData", getIntent().getSerializableExtra("userData"));
+                    startActivity(manageUsers);
+                    finish();
+                }
+                else
+                {
+                    // Go to Menu.class
+                    Intent menu = new Intent(this, Menu.class);
+                    menu.putExtra("userData", user);
+                    startActivity(menu);
+                    finish();
+                }
+
 
                 // Go to Login.class
                 /*

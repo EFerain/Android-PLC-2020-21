@@ -13,18 +13,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import be.heh.feraine_projetandroid.database.DataBaseHelper;
 import be.heh.feraine_projetandroid.database.User;
+import be.heh.feraine_projetandroid.plcManagement.LiquidRegulation;
+import be.heh.feraine_projetandroid.plcManagement.Packaging;
+import be.heh.feraine_projetandroid.plcManagement.PlcSettings;
 
 public class Menu extends AppCompatActivity
 {
-    // ======== Attributs ========
-    private Button bt_menu_plcManagement;
+    /** ======== Attributs ======== **/
+    private Button bt_menu_liquidRegulation;
+    private Button bt_menu_packaging;
     private Button bt_menu_manageUsers;
     private Button bt_menu_settings;
     private Button bt_menu_signOut;
 
     private User user;
 
-    // ======== onCreate ========
+    /** ======== onCreate ======== **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -32,7 +36,8 @@ public class Menu extends AppCompatActivity
         setContentView(R.layout.activity_menu);
 
         // Get views
-        this.bt_menu_plcManagement = findViewById(R.id.bt_menu_plcManagement);
+        this.bt_menu_liquidRegulation = findViewById(R.id.bt_menu_liquidRegulation);
+        this.bt_menu_packaging = findViewById(R.id.bt_menu_packaging);
         this.bt_menu_manageUsers = findViewById(R.id.bt_menu_manageUsers);
         this.bt_menu_settings = findViewById(R.id.bt_menu_settings);
         this.bt_menu_signOut = findViewById(R.id.bt_menu_signOut);
@@ -40,14 +45,14 @@ public class Menu extends AppCompatActivity
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
 
-        // If SuperUser
-        if(this.user.getPrivilege() == 1)
+        // If Super User
+        if(this.user.getPrivilege() == 2)
         {
             this.bt_menu_manageUsers.setVisibility(View.VISIBLE);
         }
     }
 
-    // ======== onBackPressed ========
+    /** ======== onBackPressed ======== **/
     public void onBackPressed()
     {
         final Intent signOut = new Intent(this, Login.class);
@@ -69,18 +74,31 @@ public class Menu extends AppCompatActivity
                 .show();
     }
 
-    // ======== onClickManager ========
+    /** ======== onClickManager ======== **/
     public void onMenuClickManager(View v)
     {
         switch (v.getId())
         {
-            // ==== PLC Management ====
-            case R.id.bt_menu_plcManagement:
-                // TODO button PLC Management
-                // plcManagement.putExtra("userData", user);
+            // ======== PLC Management ========
+            // ==== Liquid Regulation ====
+            case R.id.bt_menu_liquidRegulation:
+                Intent liquidRegulation = new Intent(this, PlcSettings.class);
+                liquidRegulation.putExtra("userData", user);
+                liquidRegulation.putExtra("plc", "liquidRegulation");
+                startActivity(liquidRegulation);
+
                 break;
 
-            // ==== Manage users ====
+            // ==== Packaging ====
+            case R.id.bt_menu_packaging:
+                Intent packaging = new Intent(this, PlcSettings.class);
+                packaging.putExtra("userData", user);
+                packaging.putExtra("plc", "packaging");
+                startActivity(packaging);
+
+                break;
+
+            // ======== Manage users ========
             case R.id.bt_menu_manageUsers:
                 Intent manageUsers = new Intent(this, ManageUsers.class);
                 manageUsers.putExtra("userData", user);
@@ -88,15 +106,16 @@ public class Menu extends AppCompatActivity
 
                 break;
 
-            // ==== Settings ====
+            // ======== Settings ========
             case R.id.bt_menu_settings:
                 Intent settings = new Intent(this, Settings.class);
                 settings.putExtra("userData", user);
+                settings.putExtra("userToModify", user.getLoginMail());
                 startActivity(settings);
 
                 break;
 
-            // ==== Sign out ====
+            // ======== Sign out ========
             case R.id.bt_menu_signOut:
                 final Intent signOut = new Intent(this, Login.class);
 

@@ -20,7 +20,7 @@ import be.heh.feraine_projetandroid.database.User;
 
 public class Login extends AppCompatActivity
 {
-    // ======== Attributs ========
+    /** ======== Attributs ======== **/
     private EditText et_login_loginMail;
     private EditText et_login_password;
 
@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity
     // Database
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
-    // ======== onCreate ========
+    /** ======== onCreate ======== **/
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -72,14 +72,14 @@ public class Login extends AppCompatActivity
         }
     }
 
-    // ======== onClickManager ========
+    /** ======== onClickManager ======== **/
     public void onLoginClickManager(View v)
     {
         switch(v.getId())
         {
-            // ==== Log In ====
+            // ======== Log In ========
             case R.id.bt_login_logIn:
-                // -- If Login is empty --
+                // ==== If Login is empty ====
                 if(this.et_login_loginMail.getText().toString().isEmpty())
                 {
                     // Toast.makeText(this, "Invalid login/mail", Toast.LENGTH_SHORT).show();
@@ -112,15 +112,16 @@ public class Login extends AppCompatActivity
                             }
                         }
                     }
-                    // -- User not found --
+                    // ---- User not found ----
                     catch (Exception e)
                     {
                         Toast.makeText(this, "Error : user not found", Toast.LENGTH_SHORT).show();
                     }
                 }
+
                 break;
 
-            // ==== Create User ====
+            // ======== Create User ========
             case R.id.bt_login_createUser:
                 Intent createUser = new Intent(this, CreateUser.class);
                 startActivity(createUser);

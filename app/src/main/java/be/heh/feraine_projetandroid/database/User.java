@@ -10,7 +10,7 @@ public class User implements Serializable
     private String password;
     private String firstName;
     private String lastName;
-    private int privilege;  // 0 -> lecture seul / 1 -> lecture et écriture
+    private int privilege;  // 0 -> write / 1 -> read and write / 2 -> Super User
 
     // ======== Constructeur ========
     public User()

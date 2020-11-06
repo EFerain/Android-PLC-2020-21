@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/colorBackgroundSiemens"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <!-- //// IP Address //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="IP :"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_plcSettings_ipAddress"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:inputType="number" />
+
+    <!-- //// RACK //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rack :"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_plcSettings_rack"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:inputType="number" />
+
+    <!-- //// SLOT //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Slot :"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_plcSettings_slot"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:inputType="number" />
+
+    <!-- BUTTON -->
+    <Button
+        android:id="@+id/bt_plcSettings_connect"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:text="Connect to the PLC"
+        android:layout_marginTop="50dp"
+        android:onClick="onPlcSettingsClickManager" />
+</LinearLayout>

@@ -7,7 +7,7 @@
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
-    <!-- Welcoming Message -->
+    <!-- Title -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,29 +16,17 @@
         android:text="Settings"
         android:textColor="@color/colorText"
         android:paddingTop="10dp"
-        android:paddingBottom="30dp"
-        android:textSize="25sp"/>
+        android:paddingBottom="20dp"
+        android:textSize="30sp" />
 
-    <!-- Login/Email -->
+    <!-- Login/Mail -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login/Email : " />
-
-    <EditText
-        android:id="@+id/et_settings_loginMail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"/>
-
-    <!-- Last Name -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Last name : "
+        android:text="Login/Mail : "
         android:paddingTop="10dp" />
     <EditText
-        android:id="@+id/et_settings_lastName"
+        android:id="@+id/et_settings_loginMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -53,6 +41,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- Last Name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Last name : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_settings_lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- keyboard password -->
+    <!-- Old Password -->
+    <TextView
+        android:id="@+id/tv_settings_oldPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Old password : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_settings_oldPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <!-- New Password -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New password : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_settings_newPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
+    <!-- Confirm New Password -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm new password : "
+        android:paddingTop="10dp" />
+    <EditText
+        android:id="@+id/et_settings_confirmNewPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword" />
+
     <!-- is Super User -->
     <CheckBox
         android:id="@+id/cb_settings_isSuperUser"
@@ -61,16 +98,38 @@
         android:text="Is Super User"
         android:layout_marginBottom="-8dp"
         android:visibility="gone"
-        android:checked="false"/>
+        android:checked="false" />
 
     <!-- Button SAVE CHANGES -->
     <Button
         android:id="@+id/bt_settings_saveChanges"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Save changes"
+        android:layout_gravity="center"
         android:padding="20dp"
         android:layout_marginTop="20dp"
-        android:onClick="f" />
+        android:onClick="onSettingsClickManager" />
+
+    <!-- Button DELETE USER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Se déconnecter -->
+        <Button
+            android:id="@+id/bt_settings_deleteUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:text="Delete user"
+            android:background="@color/colorCancelDeleteButton"
+            android:textColor="@color/colorCancelDeleteText"
+            android:visibility="gone"
+            android:onClick="onSettingsClickManager" />
+    </LinearLayout>
 
 </LinearLayout>
