@@ -3,19 +3,130 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     android:background="@color/colorBackgroundSiemens"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/tv_liquidRegulation_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="25dp"
         android:text="Liquid Regulation"
         android:textColor="@color/colorText"
         android:textSize="35sp" />
+
+    <!-- //// Active //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <View style="@style/Divider" />
+
+    <!-- //// Manual/Auto //// -->
+    <TextView
+        android:id="@+id/tv_liquidRegulation_manualAutoMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="Mode : "
+        android:textSize="20sp" />
+
+    <!-- //// Liquid Level //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liquid level :"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_liquidRegulation_liquidLvl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:textSize="20sp" />
+
+    <!-- //// Mot de pilotage vanne (Setpoint ?) //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setpoint :"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_liquidRegulation_setpoint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:textSize="20sp" />
+
+    <View style="@style/Divider" />
+
+    <!-- //// WriteTaskS7 //// -->
+    <LinearLayout
+        android:id="@+id/ll_liquidRegulation_writeTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- 8 valeurs (BOOL) -> DBB2 -->
+        <!-- TODO -->
+
+        <!-- 8 valeurs (BOOL) -> DBB3 -->
+        <!-- TODO -->
+
+        <!-- Integer (16 bits) -> DBW24 & DBW26 & DBW28 & DBW30 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Int 16 writing"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_liquidRegulation_intWriting"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp" />
+
+    </LinearLayout>
+
+    <!-- //// Connect S7 //// -->
+    <Button
+        android:id="@+id/bt_liquidRegulation_connectS7"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Connect"
+        android:onClick="onLiquidRegulationClickManager" />
+
+    <!-- BUTTON -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Se déconnecter -->
+        <Button
+            android:id="@+id/bt_liquidRegulation_disconnect"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:text="Disconnect"
+            android:onClick="onLiquidRegulationClickManager" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -29,6 +29,7 @@ public class ManageUsers extends AppCompatActivity
 {
     /** ======== Attributs ======== **/
     private Button bt_manageUsers_addNewUsers;
+    private Button bt_manageUsers_backMenu;
 
     private ListView lv_manageUsers_usersList;
     // private LinearLayout lv_manageUsers_usersList;
@@ -52,6 +53,7 @@ public class ManageUsers extends AppCompatActivity
 
         // Get views
         this.bt_manageUsers_addNewUsers = findViewById(R.id.bt_manageUsers_addNewUser);
+        this.bt_manageUsers_backMenu = findViewById(R.id.bt_manageUsers_backMenu);
 
         this.lv_manageUsers_usersList = findViewById(R.id.lv_manageUsers_usersList);
 
@@ -129,6 +131,23 @@ public class ManageUsers extends AppCompatActivity
                 startActivity(createUser);
 
                 break;
+
+            // ======== Back to the Menu ========
+            case R.id.bt_manageUsers_backMenu:
+                Intent menu = new Intent(this, Menu.class);
+                menu.putExtra("userData", user);
+                startActivity(menu);
+
+                break;
         }
+    }
+
+    /** ======== Update ======== **/
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        showUsersList();
     }
 }

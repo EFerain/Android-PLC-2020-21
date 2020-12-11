@@ -27,14 +27,27 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginBottom="10dp"
-        android:onClick="onManageUsersClickManager"
-        android:text="+" />
+        android:text="+"
+        android:onClick="onManageUsersClickManager" />
 
     <!-- Users list -->
     <ListView
         android:id="@+id/lv_manageUsers_usersList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="0.90" />
+
+    <!-- //// BuTTON //// -->
+    <!-- Return to the Menu -->
+    <Button
+        android:id="@+id/bt_manageUsers_backMenu"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Return to the Menu"
+        android:onClick="onManageUsersClickManager" />
 
     <!--    ManageUsers.java => showUserList() Button TODO garder ?
     <LinearLayout

@@ -40,7 +40,7 @@ public class Settings extends AppCompatActivity
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
     private User user;
-    private String userLoginToModify;
+    private static String userLoginToModify;
 
     /** ======== onCreate ======== **/
     @Override
@@ -66,7 +66,6 @@ public class Settings extends AppCompatActivity
 
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
-        Log.e("tag", "" + this.user.getId());
 
         // User to modify
         this.userLoginToModify = getIntent().getStringExtra("userToModify");
@@ -104,7 +103,7 @@ public class Settings extends AppCompatActivity
             // ======== Save changes ========
             /** If EditText is empty -> no change **/
             case R.id.bt_settings_saveChanges:
-                User modifiedUser = new User();
+                final User modifiedUser = new User();
 
                 Log.e("tag", "First Name : " + this.dataBaseHelper.getUser(this.userLoginToModify).getFirstName());
 
@@ -150,7 +149,7 @@ public class Settings extends AppCompatActivity
                         }
                     }
 
-                    // -- Privilege --
+                    // -- Privilege -- TODO cocher la case quand il est déjà super user
                     if(this.cb_settings_isSuperUser.isChecked())
                     {
                         modifiedUser.setPrivilege(1);
@@ -260,7 +259,7 @@ public class Settings extends AppCompatActivity
 
                 break;
                 
-            // ======== Delete User ======== TODO delete user
+            // ======== Delete User ========
             case R.id.bt_settings_deleteUser:
                 // -- Delete User --
                 // AlertDialog
@@ -274,10 +273,11 @@ public class Settings extends AppCompatActivity
                         {
                             public void onClick(DialogInterface dialog, int whichButton)
                             {
-                                dataBaseHelper.deleteUser(user);
-
+                                User userToDelete = dataBaseHelper.getUser(userLoginToModify);
+                                dataBaseHelper.deleteUser(userToDelete);
+                                manageUsers.putExtra("userData", user);
+                                finish();
                                 startActivity(manageUsers);
-                                finishAffinity();
                             }
                         })
                         .setNegativeButton("Cancel", null)

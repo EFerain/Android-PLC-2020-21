@@ -3,19 +3,136 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     android:background="@color/colorBackgroundSiemens"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/tv_packaging_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="25dp"
         android:text="Packaging"
         android:textColor="@color/colorText"
         android:textSize="35sp" />
+
+    <!-- //// Active //// -->
+    <TextView
+        android:id="@+id/tv_packaging_isActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+
+    <View style="@style/Divider" />
+
+    <!-- //// Number of bottles //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of bottles :"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_packaging_nbrBottles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:textSize="20sp" />
+
+    <!-- //// Number of pills per bottles //// -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of pills per bottles :"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_packaging_nbrPillsPerBottles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:textSize="20sp" />
+
+    <View style="@style/Divider" />
+
+    <!-- //// WriteTaskS7 //// -->
+    <LinearLayout
+        android:id="@+id/ll_packaging_writeTask"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- 16 valeurs (BOOL) -> DBB5 & DBB6-->
+        <!-- TODO -->
+
+        <!-- 8 valeurs (BOOL) -> DBB7 -->
+        <!-- TODO -->
+
+        <!-- Byte (8 bits) -> DBB8 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Byte 8 writing into DBB8"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_packaging_byteWriting"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp" />
+
+        <!-- Integer (16 bits) -> DBW18 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Int 16 writing into DBW18"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_packaging_intWriting"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp" />
+
+    </LinearLayout>
+
+    <!-- //// Connect S7 //// -->
+    <Button
+        android:id="@+id/bt_packaging_connectS7"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Connect"
+        android:onClick="onPackagingClickManager" />
+
+    <!-- BUTTON -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- Se déconnecter -->
+        <Button
+            android:id="@+id/bt_packaging_disconnectFromPlc"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center"
+            android:text="Disconnect from network"
+            android:onClick="onPackagingClickManager" />
+
+    </LinearLayout>
 
 </LinearLayout>
