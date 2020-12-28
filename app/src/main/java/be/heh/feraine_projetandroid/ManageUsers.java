@@ -32,7 +32,6 @@ public class ManageUsers extends AppCompatActivity
     private Button bt_manageUsers_backMenu;
 
     private ListView lv_manageUsers_usersList;
-    // private LinearLayout lv_manageUsers_usersList;
 
     // Database
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
@@ -87,31 +86,6 @@ public class ManageUsers extends AppCompatActivity
         for(User user:users)
         {
             list.add(user.getLoginMail() + "\n" + user.getFirstName() + " " + user.getLastName());
-
-            /* TODO garder ?
-            // Bouton next to User in ManageUsers
-            LinearLayout ll = new LinearLayout(this);
-            ll.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ll.setGravity(Gravity.CENTER_HORIZONTAL);
-
-            LinearLayout.LayoutParams paramtv = new LinearLayout.LayoutParams(200, LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
-            LinearLayout.LayoutParams parambt = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-            TextView tv = new TextView(this);
-            tv.setText(user.getLoginMail());
-            tv.setGravity(Gravity.LEFT);
-            tv.setLayoutParams(paramtv);
-
-            Button btn = new Button(this);
-            btn.setText("Delete");
-            btn.setGravity(Gravity.END);
-            btn.setLayoutParams(parambt);
-
-            ll.addView(tv);
-            ll.addView(btn);
-
-            this.lv_manageUsers_usersList.addView(ll);
-            */
         }
 
         this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);

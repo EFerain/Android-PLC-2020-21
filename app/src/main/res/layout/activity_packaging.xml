@@ -16,49 +16,72 @@
         android:layout_gravity="top"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingBottom="25dp"
+        android:paddingBottom="20dp"
         android:text="Packaging"
         android:textColor="@color/colorText"
         android:textSize="35sp" />
 
-    <!-- //// Active //// -->
-    <TextView
-        android:id="@+id/tv_packaging_isActive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp" />
-
-    <View style="@style/Divider" />
-
-    <!-- //// Number of bottles //// -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of bottles :"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_packaging_nbrBottles"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <!-- //// Number of pills per bottles //// -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number of pills per bottles :"
-        android:textSize="20sp" />
+        <!-- //// Is active //// -->
+        <TextView
+            android:id="@+id/tv_packaging_isActive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Motor : OFF"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_packaging_nbrPillsPerBottles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textSize="20sp" />
+        <!-- //// Selector //// -->
+        <TextView
+            android:id="@+id/tv_packaging_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selector : OFF"
+            android:textSize="20sp" />
+
+        <!-- //// Bottles generator //// -->
+        <TextView
+            android:id="@+id/tv_packaging_bottlesGenerator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Arrival of empty bottles : OFF"
+            android:textSize="20sp" />
+
+        <View style="@style/Divider" />
+
+        <!-- //// Number of bottles //// -->
+        <TextView
+            android:id="@+id/tv_packaging_nbrBottles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Number of bottles : 0"
+            android:textSize="20sp" />
+
+        <!-- //// Number of pills per bottles //// -->
+        <TextView
+            android:id="@+id/tv_packaging_nbrPillsPerBottles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Number of pills per bottles : 0"
+            android:textSize="20sp" />
+
+        <!-- //// Asking for x pills //// -->
+        <TextView
+            android:id="@+id/tv_packaging_askForPills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Asking for 0 pills"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <View style="@style/Divider" />
 
@@ -71,39 +94,120 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- 16 valeurs (BOOL) -> DBB5 & DBB6-->
-        <!-- TODO -->
-
-        <!-- 8 valeurs (BOOL) -> DBB7 -->
-        <!-- TODO -->
-
-        <!-- Byte (8 bits) -> DBB8 -->
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Byte 8 writing into DBB8"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:paddingBottom="10dp">
+
+            <!-- DB Choice -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DB choice : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_packaging_dbChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/db_list"/>
+            </LinearLayout>
+
+            <!-- Format -->
+            <LinearLayout
+                android:id="@+id/ll_packaging_formatB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Format : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_packaging_formatB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/formatB_list"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_packaging_formatW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Format : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_packaging_formatW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/formatW_list"/>
+            </LinearLayout>
+
+            <!-- If bit in byte -->
+            <LinearLayout
+                android:id="@+id/ll_packaging_bitInByte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bit : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_packaging_bitInByte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/bitInByte_list"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/et_packaging_byteWriting"
+            android:id="@+id/et_packaging_data"
             android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp" />
-
-        <!-- Integer (16 bits) -> DBW18 -->
-        <TextView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Int 16 writing into DBW18"
-            android:textSize="20sp" />
+            android:inputType="number" />
 
-        <EditText
-            android:id="@+id/et_packaging_intWriting"
-            android:layout_width="100dp"
+        <!-- //// Send //// -->
+        <Button
+            android:id="@+id/bt_packaging_send"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp" />
+            android:layout_marginTop="10dp"
+            android:text="Send"
+            android:onClick="onPackagingClickManager" />
 
     </LinearLayout>
 
@@ -112,7 +216,7 @@
         android:id="@+id/bt_packaging_connectS7"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="Connect"
         android:onClick="onPackagingClickManager" />
 

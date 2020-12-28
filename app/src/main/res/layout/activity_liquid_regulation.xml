@@ -16,57 +16,67 @@
         android:layout_gravity="top"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingBottom="25dp"
+        android:paddingBottom="20dp"
         android:text="Liquid Regulation"
         android:textColor="@color/colorText"
         android:textSize="35sp" />
 
-    <!-- //// Active //// -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp" />
-
-    <View style="@style/Divider" />
-
-    <!-- //// Manual/Auto //// -->
-    <TextView
-        android:id="@+id/tv_liquidRegulation_manualAutoMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="Mode : "
-        android:textSize="20sp" />
-
-    <!-- //// Liquid Level //// -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Liquid level :"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/tv_liquidRegulation_liquidLvl"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <!-- //// Mot de pilotage vanne (Setpoint ?) //// -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Setpoint :"
-        android:textSize="20sp" />
+        <!-- //// Liquid Level //// -->
+        <TextView
+            android:id="@+id/tv_liquidRegulation_liquidLvl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Liquid level :"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_liquidRegulation_setpoint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:textSize="20sp" />
+        <View style="@style/Divider" />
+
+        <!-- //// Manual/Auto //// -->
+        <TextView
+            android:id="@+id/tv_liquidRegulation_manualAutoMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="Mode : "
+            android:textSize="20sp" />
+
+        <!-- //// Setpoint //// -->
+        <TextView
+            android:id="@+id/tv_liquidRegulation_setpoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Setpoint : "
+            android:textSize="20sp" />
+
+        <!-- //// Consigne manuelle //// -->
+        <TextView
+            android:id="@+id/tv_liquidRegulation_manualValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Manual value : "
+            android:textSize="20sp" />
+
+        <!-- //// Output //// -->
+        <TextView
+            android:id="@+id/tv_liquidRegulation_outputValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:text="Output value : "
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <View style="@style/Divider" />
 
@@ -79,25 +89,120 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- 8 valeurs (BOOL) -> DBB2 -->
-        <!-- TODO -->
-
-        <!-- 8 valeurs (BOOL) -> DBB3 -->
-        <!-- TODO -->
-
-        <!-- Integer (16 bits) -> DBW24 & DBW26 & DBW28 & DBW30 -->
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Int 16 writing"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:paddingBottom="10dp">
+
+            <!-- DB Choice -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DB choice : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_liquidRegulation_dbChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/db_list"/>
+            </LinearLayout>
+
+            <!-- Format -->
+            <LinearLayout
+                android:id="@+id/ll_liquidRegulation_formatB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Format : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_liquidRegulation_formatB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/formatB_list"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_liquidRegulation_formatW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Format : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_liquidRegulation_formatW"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/formatW_list"/>
+            </LinearLayout>
+
+            <!-- If bit in byte -->
+            <LinearLayout
+                android:id="@+id/ll_liquidRegulation_bitInByte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bit : "
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/sp_liquidRegulation_bitInByte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/bitInByte_list"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <EditText
-            android:id="@+id/et_liquidRegulation_intWriting"
+            android:id="@+id/et_liquidRegulation_data"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp" />
+            android:gravity="center"
+            android:inputType="number" />
+
+        <!-- //// Send //// -->
+        <Button
+            android:id="@+id/bt_liquidRegulation_send"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Send"
+            android:onClick="onPackagingClickManager" />
 
     </LinearLayout>
 
@@ -106,7 +211,7 @@
         android:id="@+id/bt_liquidRegulation_connectS7"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="Connect"
         android:onClick="onLiquidRegulationClickManager" />
 
@@ -121,10 +226,10 @@
         <!-- Se déconnecter -->
         <Button
             android:id="@+id/bt_liquidRegulation_disconnect"
-            android:layout_width="180dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center"
-            android:text="Disconnect"
+            android:text="Disconnect from network"
             android:onClick="onLiquidRegulationClickManager" />
 
     </LinearLayout>

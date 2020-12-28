@@ -7,8 +7,11 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +23,27 @@ import be.heh.feraine_projetandroid.database.User;
 public class LiquidRegulation extends AppCompatActivity
 {
     private TextView tv_liquidRegulation_title;
+    private TextView tv_liquidRegulation_liquidLvl;
     private TextView tv_liquidRegulation_manualAutoMode;
+    private TextView tv_liquidRegulation_setpoint;
+    private TextView tv_liquidRegulation_manualValue;
+    private TextView tv_liquidRegulation_outputValue;
+
     private Button bt_liquidRegulation_connectS7;
+    private Button bt_liquidRegulation_send;
     private Button bt_liquidRegulation_disconnect;
 
     private LinearLayout ll_liquidRegulation_writeTask;
+    private LinearLayout ll_liquidRegulation_formatB;
+    private LinearLayout ll_liquidRegulation_formatW;
+    private LinearLayout ll_liquidRegulation_bitInByte;
+
+    private Spinner sp_liquidRegulation_dbChoice;
+    private Spinner sp_liquidRegulation_formatB;
+    private Spinner sp_liquidRegulation_formatW;
+    private Spinner sp_liquidRegulation_bitInByte;
+
+    private EditText et_liquidRegulation_data;
 
     private User user;
 
@@ -48,10 +67,27 @@ public class LiquidRegulation extends AppCompatActivity
 
         // Get views
         this.tv_liquidRegulation_title = findViewById(R.id.tv_liquidRegulation_title);
+        this.tv_liquidRegulation_liquidLvl = findViewById(R.id.tv_liquidRegulation_liquidLvl);
         this.tv_liquidRegulation_manualAutoMode = findViewById(R.id.tv_liquidRegulation_manualAutoMode);
+        this.tv_liquidRegulation_setpoint = findViewById(R.id.tv_liquidRegulation_setpoint);
+        this.tv_liquidRegulation_manualValue = findViewById(R.id.tv_liquidRegulation_manualValue);
+        this.tv_liquidRegulation_outputValue = findViewById(R.id.tv_liquidRegulation_outputValue);
+
         this.ll_liquidRegulation_writeTask = findViewById(R.id.ll_liquidRegulation_writeTask);
+        this.ll_liquidRegulation_formatB = findViewById(R.id.ll_liquidRegulation_formatB);
+        this.ll_liquidRegulation_formatW = findViewById(R.id.ll_liquidRegulation_formatW);
+        this.ll_liquidRegulation_bitInByte = findViewById(R.id.ll_liquidRegulation_bitInByte);
+
         this.bt_liquidRegulation_connectS7 = findViewById(R.id.bt_liquidRegulation_connectS7);
+        this.bt_liquidRegulation_send = findViewById(R.id.bt_liquidRegulation_send);
         this.bt_liquidRegulation_disconnect = findViewById(R.id.bt_liquidRegulation_disconnect);
+
+        this.sp_liquidRegulation_dbChoice = findViewById(R.id.sp_liquidRegulation_dbChoice);
+        this.sp_liquidRegulation_formatB = findViewById(R.id.sp_liquidRegulation_formatB);
+        this.sp_liquidRegulation_formatW = findViewById(R.id.sp_liquidRegulation_formatW);
+        this.sp_liquidRegulation_bitInByte = findViewById(R.id.sp_liquidRegulation_bitInByte);
+
+        this.et_liquidRegulation_data = findViewById(R.id.et_liquidRegulation_data);
 
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
@@ -73,6 +109,143 @@ public class LiquidRegulation extends AppCompatActivity
 
         // NetworkInfo -> accès aux informations du réseau
         network = connexStatus.getActiveNetworkInfo();
+
+        /** Listener **/
+        // Listener for DBB,W
+        this.sp_liquidRegulation_dbChoice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id)
+            {
+                dbChoice();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView)
+            {
+                // VOID
+            }
+        });
+
+        // Listener for Format B
+        this.sp_liquidRegulation_formatB.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                dbChoice();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                // VOID
+            }
+        });
+
+        // Lister for Format W
+        this.sp_liquidRegulation_formatW.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                dbChoice();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                // VOID
+            }
+        });
+
+        // Lister for Bit
+        this.sp_liquidRegulation_bitInByte.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                dbChoice();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+                // VOID
+            }
+        });
+    }
+
+    /** ======== DBB,W ======== **/
+    public void dbChoice()
+    {
+        // Attributes
+        String format;
+        String bitNumber = "";
+
+        // If B or W
+        String dbChoice = this.sp_liquidRegulation_dbChoice.getSelectedItem().toString();
+        String dbName = dbChoice.substring(3);
+        int dbNum = Integer.parseInt(dbName);
+
+        if(dbNum <= 14)
+        {
+            this.ll_liquidRegulation_formatB.setVisibility(View.VISIBLE);
+            this.ll_liquidRegulation_formatW.setVisibility(View.GONE);
+
+            format = this.sp_liquidRegulation_formatB.getSelectedItem().toString();
+        }
+        else
+        {
+            this.ll_liquidRegulation_formatB.setVisibility(View.GONE);
+            this.ll_liquidRegulation_formatW.setVisibility(View.VISIBLE);
+
+            format = this.sp_liquidRegulation_formatW.getSelectedItem().toString();
+        }
+
+        // Format
+        if(format.equals("Byte"))
+        {
+            this.et_liquidRegulation_data.setHint("0 - 255");
+        }
+        else if(format.equals("Int"))
+        {
+            this.et_liquidRegulation_data.setHint("0 - 65 535");
+        }
+        else
+        {
+            this.et_liquidRegulation_data.setHint("0 - 1");
+        }
+
+        // If bit in DBB
+        if(dbNum <= 14 && format.equals("Bit"))
+        {
+            this.ll_liquidRegulation_bitInByte.setVisibility(View.VISIBLE);
+
+            bitNumber = this.sp_liquidRegulation_bitInByte.getSelectedItem().toString();
+        }
+        else
+        {
+            this.ll_liquidRegulation_bitInByte.setVisibility(View.GONE);
+        }
+
+        Log.e("Write", "DB : " + dbNum + " || Format : " + format + " || Bit : " + bitNumber);
+    }
+
+    /** ======== onBackPressed ======== **/
+    public void onBackPressed()
+    {
+        if(this.bt_liquidRegulation_connectS7.getText().equals("Disconnect"))
+        {
+            this.readTaskS7.Stop();
+
+            if(this.user.getPrivilege() > 0)
+            {
+                this.writeTaskS7.Stop();
+            }
+        }
+
+        finish();
     }
 
     /** ======== onClickManager ======== **/
@@ -82,7 +255,6 @@ public class LiquidRegulation extends AppCompatActivity
         {
             // ======== Connect S7 ========
             case R.id.bt_liquidRegulation_connectS7:
-
                 if(this.network != null && this.network.isConnectedOrConnecting())
                 {
                     if(this.bt_liquidRegulation_connectS7.getText().equals("Connect"))
@@ -92,11 +264,11 @@ public class LiquidRegulation extends AppCompatActivity
 
                         this.bt_liquidRegulation_connectS7.setText("Disconnect");
 
-                        this.readTaskS7 = new ReadTaskS7(tv_liquidRegulation_title , tv_liquidRegulation_manualAutoMode);
+                        this.readTaskS7 = new ReadTaskS7(tv_liquidRegulation_title, tv_liquidRegulation_liquidLvl, tv_liquidRegulation_manualAutoMode,
+                                tv_liquidRegulation_setpoint, tv_liquidRegulation_manualValue, tv_liquidRegulation_outputValue);
                         this.readTaskS7.Start(this.ip, this.rack, this.slot);
 
                         // WriteTaskS7
-
                         try
                         {
                             Thread.sleep(1000);
@@ -106,16 +278,24 @@ public class LiquidRegulation extends AppCompatActivity
                             e.printStackTrace();
                         }
 
-                        // writeS7 = new WriteTaskS7();
-                        // writeS7.Start("10.1.0.110", "0", "1");
+                        if(this.user.getPrivilege() > 0)
+                        {
+                            this.writeTaskS7 = new WriteTaskS7();
+                            this.writeTaskS7.Start(this.ip, this.rack, this.slot);
+                        }
                     }
                     else
                     {
                         // ReadTaskS7
-                        readTaskS7.Stop();
-
                         this.bt_liquidRegulation_connectS7.setText("Connect");
-                        this.ll_liquidRegulation_writeTask.setEnabled(false);
+
+                        this.tv_liquidRegulation_liquidLvl.setText("Liquid level : ");
+                        this.tv_liquidRegulation_manualAutoMode.setText("Mode : ");
+                        this.tv_liquidRegulation_setpoint.setText("Setpoint : ");
+                        this.tv_liquidRegulation_manualValue.setText("Manual value : ");
+                        this.tv_liquidRegulation_outputValue.setText("Output value : ");
+
+                        readTaskS7.Stop();
 
                         // WriteTaskS7
                         try
@@ -127,32 +307,111 @@ public class LiquidRegulation extends AppCompatActivity
                             e.printStackTrace();
                         }
 
-                        // writeS7.Stop();
-                        // ln_main_ecrireS7.setVisibility(View.INVISIBLE);
+                        if(this.user.getPrivilege() > 0)
+                        {
+                            this.writeTaskS7.Stop();
+                        }
                     }
                 }
                 // Can't connect
                 else
                 {
-                    Toast.makeText(this, "! Connexion réseau IMPOSSIBLE !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Cannot connect to the network", Toast.LENGTH_SHORT).show();
                 }
 
+                break;
+
+            // ======== Send ========
+            case R.id.bt_liquidRegulation_send:
+                // If disconnected
+                if(this.writeTaskS7 == null)
+                {
+                    Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show();
+                }
+                // If empty field
+                else if(this.et_liquidRegulation_data.getText().toString().isEmpty())
+                {
+                    Toast.makeText(this, "Empty field", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    int dbNumber = Integer.parseInt(this.sp_liquidRegulation_dbChoice.getSelectedItem().toString().substring(3));
+                    String format;
+
+                    if(dbNumber <= 14)
+                    {
+                        format = this.sp_liquidRegulation_formatB.getSelectedItem().toString();
+                    }
+                    else
+                    {
+                        format = this.sp_liquidRegulation_formatW.getSelectedItem().toString();
+                    }
+
+                    int dataValue;
+
+                    try
+                    {
+                        dataValue = Integer.parseInt(this.et_liquidRegulation_data.getText().toString());
+
+                        // If Bit (0 - 1)
+                        if(format.equals("Bit"))
+                        {
+                            if(dataValue != 0 && dataValue != 1)
+                            {
+                                Toast.makeText(this, "Please enter a correct value (0 - 1)", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                int bitNumber = Integer.parseInt(this.sp_liquidRegulation_bitInByte.getSelectedItem().toString());
+
+                                this.writeTaskS7.setWriteBool(dbNumber, (int)Math.pow(2, bitNumber), dataValue);
+                            }
+                        }
+                        // If Byte (0 - 255)
+                        else if(dbNumber <= 14)
+                        {
+                            if(dataValue < 0 || dataValue > 255)
+                            {
+                                Toast.makeText(this, "Please enter a correct value (0 - 255)", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                this.writeTaskS7.setWriteByte(dbNumber, dataValue);
+                            }
+                        }
+                        // If Int (0 - 65535)
+                        else
+                        {
+                            if(dataValue < 0 || dataValue > 65535)
+                            {
+                                Toast.makeText(this, "Please enter a correct value (0 - 65 535)", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                this.writeTaskS7.setWriteInt(dbNumber, dataValue);
+                            }
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
                 break;
 
             // ======== Disconnect ========
             case R.id.bt_liquidRegulation_disconnect:
-                /*
-                this.readTaskS7.Stop();
-                if(this.user.getPrivilege() > 0)
+                if(this.bt_liquidRegulation_connectS7.getText().equals("Disconnect"))
                 {
-                    this.writeTaskS7.Stop();
-                }
-                */
+                    this.readTaskS7.Stop();
 
-                Intent plcSettings = new Intent(this, PlcSettings.class);
-                plcSettings.putExtra("userData", user);
-                startActivity(plcSettings);
+                    if(this.user.getPrivilege() > 0)
+                    {
+                        this.writeTaskS7.Stop();
+                    }
+                }
+
                 finish();
 
                 break;

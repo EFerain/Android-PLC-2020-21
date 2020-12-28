@@ -1,3 +1,55 @@
 <resources>
     <string name="app_name">FerainE_ProjetAndroid</string>
+
+    <!-- DBB,W -->
+    <string-array name="db_list">
+        <item>DBB1</item>
+        <item>DBB2</item>
+        <item>DBB3</item>
+        <item>DBB4</item>
+        <item>DBB5</item>
+        <item>DBB6</item>
+        <item>DBB7</item>
+        <item>DBB8</item>
+        <item>DBB9</item>
+        <item>DBB10</item>
+        <item>DBB11</item>
+        <item>DBB12</item>
+        <item>DBB13</item>
+        <item>DBB14</item>
+        <item>DBB15</item>
+        <item>DBW16</item>
+        <item>DBW18</item>
+        <item>DBW20</item>
+        <item>DBW22</item>
+        <item>DBW24</item>
+        <item>DBW26</item>
+        <item>DBW28</item>
+        <item>DBW30</item>
+        <item>DBW32</item>
+        <item>DBW34</item>
+    </string-array>
+
+    <!-- Format -->
+    <string-array name="formatB_list">
+        <item>Bit</item>
+        <item>Byte</item>
+    </string-array>
+
+    <string-array name="formatW_list">
+        <item>Bit</item>
+        <item>Int</item>
+    </string-array>
+
+    <!-- If bit in byte -->
+    <string-array name="bitInByte_list">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
 </resources>

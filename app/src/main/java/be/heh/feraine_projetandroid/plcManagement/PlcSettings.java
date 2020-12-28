@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.regex.Matcher;
 
+import be.heh.feraine_projetandroid.Menu;
 import be.heh.feraine_projetandroid.R;
 import be.heh.feraine_projetandroid.database.User;
 
@@ -23,6 +24,7 @@ public class PlcSettings extends AppCompatActivity
     private EditText et_plcSettings_slot;
 
     private Button bt_plcSettings_connect;
+    private Button bt_plcSettings_backMenu;
 
     private User user;
 
@@ -41,6 +43,7 @@ public class PlcSettings extends AppCompatActivity
         this.et_plcSettings_slot = findViewById(R.id.et_plcSettings_slot);
 
         this.bt_plcSettings_connect = findViewById(R.id.bt_plcSettings_connect);
+        this.bt_plcSettings_backMenu = findViewById(R.id.bt_plcSettings_backMenu);
 
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
@@ -53,6 +56,7 @@ public class PlcSettings extends AppCompatActivity
     {
         switch (v.getId())
         {
+            // ======== Connect =======
             case R.id.bt_plcSettings_connect:
                 switch (this.plc)
                 {
@@ -67,14 +71,6 @@ public class PlcSettings extends AppCompatActivity
                         }
                         else
                         {
-                            Intent liquidRegulation = new Intent(this, LiquidRegulation.class);
-                            liquidRegulation.putExtra("userData", user);
-                            liquidRegulation.putExtra("ip", this.et_plcSettings_ipAddress.getText().toString());
-                            liquidRegulation.putExtra("rack", this.et_plcSettings_rack.getText().toString());
-                            liquidRegulation.putExtra("slot", this.et_plcSettings_slot.getText().toString());
-                            startActivity(liquidRegulation);
-
-                            /*
                             // ==== Wrong IP ====
                             if(!Patterns.IP_ADDRESS.matcher(this.et_plcSettings_ipAddress.getText().toString()).matches())
                             {
@@ -90,7 +86,6 @@ public class PlcSettings extends AppCompatActivity
                                 liquidRegulation.putExtra("slot", this.et_plcSettings_slot.getText().toString());
                                 startActivity(liquidRegulation);
                             }
-                            */
                         }
 
                         break;
@@ -106,14 +101,6 @@ public class PlcSettings extends AppCompatActivity
                         }
                         else
                         {
-                            Intent packaging = new Intent(this, Packaging.class);
-                            packaging.putExtra("userData", user);
-                            packaging.putExtra("ip", this.et_plcSettings_ipAddress.getText().toString());
-                            packaging.putExtra("rack", this.et_plcSettings_rack.getText().toString());
-                            packaging.putExtra("slot", this.et_plcSettings_slot.getText().toString());
-                            startActivity(packaging);
-
-                            /*
                             // ==== Wrong IP ====
                             if(!Patterns.IP_ADDRESS.matcher(this.et_plcSettings_ipAddress.getText().toString()).matches())
                             {
@@ -128,11 +115,18 @@ public class PlcSettings extends AppCompatActivity
                                 packaging.putExtra("slot", this.et_plcSettings_slot.getText().toString());
                                 startActivity(packaging);
                             }
-                             */
                         }
 
                         break;
                 }
+
+                break;
+
+            // ======== Back to menu ========
+            case R.id.bt_plcSettings_backMenu:
+                Intent menu = new Intent(this, Menu.class);
+                menu.putExtra("userData", user);
+                startActivity(menu);
 
                 break;
         }

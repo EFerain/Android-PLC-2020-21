@@ -2,6 +2,7 @@ package be.heh.feraine_projetandroid.plcManagement;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.feraine_projetandroid.Simatic_S7.S7;
@@ -18,7 +19,7 @@ public class WriteTaskS7
     private S7Client comS7;
 
     private String[] parConnexion = new String[10];
-    private byte[] motCommande = new byte[10];
+    private byte[] motCommande = new byte[256];
 
     /** ======== Constructeur ======== **/
     public WriteTaskS7()
@@ -52,7 +53,8 @@ public class WriteTaskS7
         this.writeThread.interrupt();
     }
 
-    // ======== Write BOOL ========
+    // ======== WRITE ========
+    // ==== BOOL ====
     public void setWriteBool(int by, int b, int v)
     {
         if(v == 1)
@@ -65,17 +67,39 @@ public class WriteTaskS7
         }
     }
 
-    // ======== Write BYTE ========
-    public void setWriteByte(int value)
+    // ==== BYTE ====
+    public void setWriteByte(int p, int v)
     {
-        // TODO
+        String s = Integer.toBinaryString(v);
+        ArrayList<Boolean> booleans = new ArrayList<>();
+
+        for(char c : s.toCharArray())
+        {
+            if(c == '1')
+            {
+                booleans.add(true);
+            }
+            else if(c == '0')
+            {
+                booleans.add(false);
+            }
+        }
+
+        // Writre right --> left
+        int i = booleans.size() - 1;
+
+        for (Boolean b : booleans)
+        {
+            System.out.print(b + " ");
+            S7.SetBitAt(motCommande, p, i, b);
+            i--;
+        }
     }
 
-    // ======== Write INT ========
+    // ==== INT ====
     public void setWriteInt(int p, int v)
     {
         S7.SetWordAt(motCommande, p, v);
-        // TODO
     }
 
     /** ======== Classe interne ======== **/
@@ -91,11 +115,13 @@ public class WriteTaskS7
 
                 Integer res = comS7.ConnectTo(parConnexion[0], Integer.valueOf(parConnexion[1]), Integer.valueOf(parConnexion[2]));
 
-                while (isRunning.get() && (res.equals(0)))
-                {
-                    Integer writePLC = comS7.WriteArea(S7.S7AreaDB, 20, 0, 1, motCommande);
+                comS7.ReadArea(S7.S7AreaDB, 5, 0, 34, motCommande);
 
-                    if (writePLC.equals(0))
+                while(isRunning.get() && (res.equals(0)))
+                {
+                    Integer writePLC = comS7.WriteArea(S7.S7AreaDB, 5, 0, 34, motCommande);
+
+                    if(writePLC.equals(0))
                     {
                         Log.i("ret WRITE : ", String.valueOf(res) + "****" + String.valueOf(writePLC));
                     }
