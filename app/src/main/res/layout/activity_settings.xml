@@ -19,77 +19,92 @@
         android:paddingBottom="20dp"
         android:textSize="30sp" />
 
-    <!-- Login/Mail -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login/Mail : " />
-    <EditText
-        android:id="@+id/et_settings_loginMail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:scrollbars="none">
 
-    <!-- First name -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="First name : "
-        android:paddingTop="10dp" />
-    <EditText
-        android:id="@+id/et_settings_firstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <!-- Last Name -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Last name : "
-        android:paddingTop="10dp" />
-    <EditText
-        android:id="@+id/et_settings_lastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            <!-- Login/Mail -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Login/Mail : " />
+            <EditText
+                android:id="@+id/et_settings_loginMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <!-- keyboard password -->
-    <!-- Old Password -->
-    <TextView
-        android:id="@+id/tv_settings_oldPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Old password : "
-        android:paddingTop="10dp" />
-    <EditText
-        android:id="@+id/et_settings_oldPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+            <!-- First name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="First name : "
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_settings_firstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <!-- New Password -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="New password : "
-        android:paddingTop="10dp" />
-    <EditText
-        android:id="@+id/et_settings_newPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+            <!-- Last Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last name : "
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_settings_lastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <!-- Confirm New Password -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirm new password : "
-        android:paddingTop="10dp" />
-    <EditText
-        android:id="@+id/et_settings_confirmNewPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword" />
+            <!-- keyboard password -->
+            <!-- Old Password -->
+            <TextView
+                android:id="@+id/tv_settings_oldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Old password : "
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_settings_oldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+            <!-- New Password -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New password : "
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_settings_newPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+            <!-- Confirm New Password -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirm new password : "
+                android:paddingTop="10dp" />
+            <EditText
+                android:id="@+id/et_settings_confirmNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <!-- is Super User -->
+    <!--
     <CheckBox
         android:id="@+id/cb_settings_isSuperUser"
         android:layout_width="match_parent"
@@ -98,6 +113,19 @@
         android:layout_marginBottom="-8dp"
         android:visibility="gone"
         android:checked="false" />
+    -->
+
+    <Switch
+        android:id="@+id/sw_settings_isSuperUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="55dp"
+        android:text="Is Super User : "
+        android:layout_marginBottom="-8dp"
+        android:visibility="gone"
+        android:checked="false"
+        android:textOff="No"
+        android:textOn="Yes" />
 
     <!-- Button SAVE CHANGES -->
     <Button

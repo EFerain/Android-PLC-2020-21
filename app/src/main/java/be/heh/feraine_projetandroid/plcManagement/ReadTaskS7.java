@@ -5,8 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -112,8 +111,7 @@ public class ReadTaskS7
     // ==== downloadOnPreExecute ====
     private void downloadOnPreExecute(int t)
     {
-        // VOID
-        // TODO if déco
+        // TODO
     }
 
     // ==== downloadOnProgressExecute ====
@@ -270,7 +268,7 @@ public class ReadTaskS7
                 else numCPU = 0000;
 
                 sendPreExecuteMessage(numCPU);
-                //Log.e("Num", "Num : " + numCPU);
+                // Log.i("Num", "Num : " + numCPU);
 
                 while(isRunning.get())
                 {
@@ -286,7 +284,7 @@ public class ReadTaskS7
                         }
                     }
 
-                    //Log.e("Banana", "Baanna");
+                    // Log.i("Connect ?", "Yes");
 
                     try
                     {

@@ -1,23 +1,13 @@
 package be.heh.feraine_projetandroid;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -69,6 +59,7 @@ public class ManageUsers extends AppCompatActivity
                 settings.putExtra("userData", user);
                 settings.putExtra("userToModify", lv_manageUsers_usersList.getItemAtPosition(position).toString()
                         .split("\n")[0]);
+                settings.putExtra("fromManageUsers", true);
                 startActivity(settings);
             }
         });

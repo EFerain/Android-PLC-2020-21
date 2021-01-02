@@ -2,7 +2,6 @@ package be.heh.feraine_projetandroid;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 
 import be.heh.feraine_projetandroid.database.DataBaseHelper;
 import be.heh.feraine_projetandroid.database.User;
@@ -95,7 +92,7 @@ public class Login extends AppCompatActivity
                         {
                             if(user.getPassword().equals(this.et_login_password.getText().toString()))
                             {
-                                Log.e("Testi", "Privilege : " + user.getPrivilege() + " // " + "User : " + user.getLoginMail());
+                                // Log.i("Log in", "User : " + user.getLoginMail() + " // " + "Privilege : " + user.getPrivilege());
 
                                 // Go to Menu.class
                                 Intent menu = new Intent(this, Menu.class);

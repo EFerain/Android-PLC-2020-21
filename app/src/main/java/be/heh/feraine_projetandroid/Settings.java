@@ -3,16 +3,14 @@ package be.heh.feraine_projetandroid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,12 +32,14 @@ public class Settings extends AppCompatActivity
     private Button bt_settings_saveChanges;
     private Button bt_settings_deleteUser;
 
-    private CheckBox cb_settings_isSuperUser;
+    private Switch sw_settings_isSuperUser;
 
     // Database
     private DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
     private User user;
+
+    // LOGIN
     private static String userLoginToModify;
 
     /** ======== onCreate ======== **/
@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity
         this.et_settings_newPassword = findViewById(R.id.et_settings_newPassword);
         this.et_settings_confirmNewPassword = findViewById(R.id.et_settings_confirmNewPassword);
 
-        this.cb_settings_isSuperUser = findViewById(R.id.cb_settings_isSuperUser);
+        this.sw_settings_isSuperUser = findViewById(R.id.sw_settings_isSuperUser);
 
         this.bt_settings_saveChanges = findViewById(R.id.bt_settings_saveChanges);
         this.bt_settings_deleteUser = findViewById(R.id.bt_settings_deleteUser);
@@ -67,8 +67,11 @@ public class Settings extends AppCompatActivity
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
 
-        // User to modify
+        // User LOGIN to modify
         this.userLoginToModify = getIntent().getStringExtra("userToModify");
+
+        // Get every data from user to modify
+        User userData = this.dataBaseHelper.getUser(this.userLoginToModify);
 
         // Super User => show/hide elements && hint
         if(this.user.getPrivilege() == 2 && !this.user.getLoginMail().equals(this.userLoginToModify))
@@ -78,13 +81,12 @@ public class Settings extends AppCompatActivity
             this.tv_settings_oldPassword.setVisibility(View.GONE);
             this.et_settings_oldPassword.setVisibility(View.GONE);
 
-            this.cb_settings_isSuperUser.setVisibility(View.VISIBLE);
+            this.sw_settings_isSuperUser.setVisibility(View.VISIBLE);
 
             // Hint
-            User usertmp = this.dataBaseHelper.getUser(this.userLoginToModify);
-            this.et_settings_loginMail.setHint(usertmp.getLoginMail());
-            this.et_settings_firstName.setHint(usertmp.getFirstName());
-            this.et_settings_lastName.setHint(usertmp.getLastName());
+            this.et_settings_loginMail.setHint(userData.getLoginMail());
+            this.et_settings_firstName.setHint(userData.getFirstName());
+            this.et_settings_lastName.setHint(userData.getLastName());
         }
         else
         {
@@ -92,6 +94,12 @@ public class Settings extends AppCompatActivity
             this.et_settings_loginMail.setHint(this.user.getLoginMail());
             this.et_settings_firstName.setHint(this.user.getFirstName());
             this.et_settings_lastName.setHint(this.user.getLastName());
+        }
+
+        // Switch
+        if(userData.getPrivilege() == 1)
+        {
+            this.sw_settings_isSuperUser.setChecked(true);
         }
     }
 
@@ -105,15 +113,13 @@ public class Settings extends AppCompatActivity
             case R.id.bt_settings_saveChanges:
                 final User modifiedUser = new User();
 
-                Log.e("tag", "First Name : " + this.dataBaseHelper.getUser(this.userLoginToModify).getFirstName());
-
                 // ==== First name ====
                 // New first name
                 if(!this.et_settings_firstName.getText().toString().isEmpty())
                 {
                     modifiedUser.setFirstName(this.et_settings_firstName.getText().toString());
 
-                    Log.e("update", "First name : " + user.getFirstName() + "\n");
+                    // Log.i("Update", "First name : " + user.getFirstName() + "\n");
                 }
 
                 // ==== Last name ====
@@ -122,10 +128,10 @@ public class Settings extends AppCompatActivity
                 {
                     modifiedUser.setLastName(this.et_settings_lastName.getText().toString());
 
-                    Log.e("update", "Last name : " + user.getLastName() + "\n");
+                    // Log.i("Update", "Last name : " + user.getLastName() + "\n");
                 }
 
-                // ==== If Super User modifies an User / From Manage Users ====
+                // ==== From Manage Users ====
                 if(this.user.getPrivilege() == 2 && !this.user.getLoginMail().equals(this.userLoginToModify))
                 {
                     // -- Password --
@@ -149,8 +155,7 @@ public class Settings extends AppCompatActivity
                         }
                     }
 
-                    // -- Privilege -- TODO cocher la case quand il est déjà super user
-                    if(this.cb_settings_isSuperUser.isChecked())
+                    if(this.sw_settings_isSuperUser.isChecked())
                     {
                         modifiedUser.setPrivilege(1);
                     }
@@ -159,7 +164,7 @@ public class Settings extends AppCompatActivity
                         modifiedUser.setPrivilege(0);
                     }
 
-                    Log.e("update", "Privilege : " + user.getFirstName() + "\n");
+                    // Log.i("Update", "Privilege : " + user.getPrivilege() + "\n");
 
                     // ==== Login ====
                     if(!this.et_settings_loginMail.getText().toString().isEmpty())
@@ -219,8 +224,8 @@ public class Settings extends AppCompatActivity
 
                 }
 
-                Log.e("tag",  "Login : " + modifiedUser.getLoginMail() + " || First name : " + modifiedUser.getFirstName() +
-                        " || Last name : " + modifiedUser.getLastName() + " || Password : " + modifiedUser.getPassword());
+                // Log.i("Full update",  "Login : " + modifiedUser.getLoginMail() + " || First name : " + modifiedUser.getFirstName() +
+                //        " || Last name : " + modifiedUser.getLastName() + " || Password : " + modifiedUser.getPassword());
 
                 // SAVE
                 this.dataBaseHelper.updateLoginMail(modifiedUser);
@@ -241,7 +246,8 @@ public class Settings extends AppCompatActivity
                 }
 
                 // ==== Redirection ====
-                if(user.getPrivilege() == 2 && !user.getLoginMail().equals(userLoginToModify))
+                if((user.getPrivilege() == 2 && !user.getLoginMail().equals(userLoginToModify)) ||
+                        (user.getLoginMail().equals(userLoginToModify) && getIntent().getBooleanExtra("fromManageUsers", false)))
                 {
                     Intent manageUsers = new Intent(this, ManageUsers.class);
                     manageUsers.putExtra("userData", this.user);
@@ -250,7 +256,6 @@ public class Settings extends AppCompatActivity
                 }
                 else
                 {
-                    // TODO admin doit être renvoyé vers Manage User quand il se modifie lui-même
                     Intent menu = new Intent(this, Menu.class);
                     menu.putExtra("userData", this.user);
                     startActivity(menu);

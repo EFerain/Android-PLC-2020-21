@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -106,8 +105,8 @@ public class CreateUser extends AppCompatActivity
 
                 dataBaseHelper.addUser(this.user);
 
-                Log.e("Testi", "Privilege " + this.user.getPrivilege());    // TODO Log
-
+                // ==== Redirection ====
+                // If from ManageUsers
                 if(getIntent().getBooleanExtra("fromManageUsers", false))
                 {
                     Intent manageUsers = new Intent(this, ManageUsers.class);
@@ -118,19 +117,19 @@ public class CreateUser extends AppCompatActivity
                 else
                 {
                     // Go to Menu.class
+                    /*
                     Intent menu = new Intent(this, Menu.class);
                     menu.putExtra("userData", user);
                     startActivity(menu);
                     finish();
+                    */
+
+                    // Go to Login.class
+                    Intent login = new Intent(this, Login.class);
+                    login.putExtra("userData", user);
+                    startActivity(login);
+                    finish();
                 }
-
-
-                // Go to Login.class
-                /*
-                Intent login = new Intent(this, Login.class);
-                startActivity(login);
-                finish();
-                */
 
                 break;
         }

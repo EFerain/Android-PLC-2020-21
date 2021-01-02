@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:text="Number of bottles : 0"
             android:textSize="20sp" />
 
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:text="Number of pills per bottles : 0"
             android:textSize="20sp" />
 
@@ -78,7 +78,7 @@
             android:id="@+id/tv_packaging_askForPills"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:text="Asking for 0 pills"
             android:textSize="20sp" />
     </LinearLayout>

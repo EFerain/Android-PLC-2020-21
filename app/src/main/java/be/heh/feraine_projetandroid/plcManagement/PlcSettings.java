@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.regex.Matcher;
-
 import be.heh.feraine_projetandroid.Menu;
 import be.heh.feraine_projetandroid.R;
 import be.heh.feraine_projetandroid.database.User;

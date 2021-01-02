@@ -3,18 +3,13 @@ package be.heh.feraine_projetandroid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import be.heh.feraine_projetandroid.database.DataBaseHelper;
 import be.heh.feraine_projetandroid.database.User;
-import be.heh.feraine_projetandroid.plcManagement.LiquidRegulation;
-import be.heh.feraine_projetandroid.plcManagement.Packaging;
 import be.heh.feraine_projetandroid.plcManagement.PlcSettings;
 
 public class Menu extends AppCompatActivity

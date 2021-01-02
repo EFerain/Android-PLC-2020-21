@@ -18,7 +18,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public static final String COLUMN_LASTNAME = "lastname";
     public static final String COLUMN_PRIVILEGE = "privilege";  // 2 -> Super User || 1 -> User (R/W) || 0 -> User (R)
 
-
     public DataBaseHelper(Context context)
     {
         super(context, "user.db", null, 1);
@@ -36,17 +35,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
                 COLUMN_LASTNAME + " TEXT NOT NULL, " +
                 COLUMN_PRIVILEGE + " INTEGER NOT NULL);"
         );
-
-        /*
-        // SANS PRIVILEGE
-        db.execSQL("CREATE TABLE " + USER_TABLE + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_LOGINMAIL + " TEXT NOT NULL, " +
-                COLUMN_PASSWORD + " TEXT NOT NULL, " +
-                COLUMN_FIRSTNAME + " TEXT NOT NULL, " +
-                COLUMN_LASTNAME + " TEXT NOT NULL );"
-        );
-        */
     }
 
     /** onUpgrade **/

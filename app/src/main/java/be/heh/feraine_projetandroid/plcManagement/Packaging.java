@@ -1,9 +1,6 @@
 package be.heh.feraine_projetandroid.plcManagement;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,18 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Arrays;
 
 import be.heh.feraine_projetandroid.R;
 import be.heh.feraine_projetandroid.database.User;
@@ -112,7 +102,7 @@ public class Packaging extends AppCompatActivity
         this.rack = getIntent().getStringExtra("rack");
         this.slot = getIntent().getStringExtra("slot");
 
-        Log.e("Info PLC", "IP : " + this.ip + " || Rack : " + this.rack + " || Slot : " + this.slot);
+        // Log.i("Info PLC", "IP : " + this.ip + " || Rack : " + this.rack + " || Slot : " + this.slot);
 
         // If user with R/W privilege
         if(this.user.getPrivilege() > 0)
@@ -199,12 +189,12 @@ public class Packaging extends AppCompatActivity
         String format;
         String bitNumber = "";
 
-        // If B or W
+        // If B or W (number)
         String dbChoice = this.sp_packaging_dbChoice.getSelectedItem().toString();
         String dbName = dbChoice.substring(3);
         int dbNum = Integer.parseInt(dbName);
 
-        if(dbNum <= 14)
+        if(dbNum <= 15)
         {
             this.ll_packaging_formatB.setVisibility(View.VISIBLE);
             this.ll_packaging_formatW.setVisibility(View.GONE);
@@ -234,7 +224,7 @@ public class Packaging extends AppCompatActivity
         }
 
         // If bit in DBB
-        if(dbNum <= 14 && format.equals("Bit"))
+        if(dbNum <= 15 && format.equals("Bit"))
         {
             this.ll_packaging_bitInByte.setVisibility(View.VISIBLE);
 
@@ -245,7 +235,7 @@ public class Packaging extends AppCompatActivity
             this.ll_packaging_bitInByte.setVisibility(View.GONE);
         }
 
-        Log.e("Write", "DB : " + dbNum + " || Format : " + format + " || Bit : " + bitNumber);
+        Log.i("Write", "DB : " + dbNum + " || Format : " + format + " || Bit : " + bitNumber);
     }
 
     /** ======== onBackPressed ======== **/
@@ -356,7 +346,7 @@ public class Packaging extends AppCompatActivity
                     String format;
 
                     // DBB
-                    if(dbNumber <= 14)
+                    if(dbNumber <= 15)
                     {
                         format = this.sp_packaging_formatB.getSelectedItem().toString();
                     }
@@ -386,7 +376,7 @@ public class Packaging extends AppCompatActivity
                             }
                         }
                         // If Byte (0 - 255)
-                        else if(dbNumber <= 14)
+                        else if(dbNumber <= 15)
                         {
                             if(dataValue < 0 || dataValue > 255)
                             {
