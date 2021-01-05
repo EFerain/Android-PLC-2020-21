@@ -109,9 +109,6 @@ public class CreateUser extends AppCompatActivity
                 // If from ManageUsers
                 if(getIntent().getBooleanExtra("fromManageUsers", false))
                 {
-                    Intent manageUsers = new Intent(this, ManageUsers.class);
-                    manageUsers.putExtra("userData", getIntent().getSerializableExtra("userData"));
-                    startActivity(manageUsers);
                     finish();
                 }
                 else
@@ -126,7 +123,6 @@ public class CreateUser extends AppCompatActivity
 
                     // Go to Login.class
                     Intent login = new Intent(this, Login.class);
-                    login.putExtra("userData", user);
                     startActivity(login);
                     finish();
                 }

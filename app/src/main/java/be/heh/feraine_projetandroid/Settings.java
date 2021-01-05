@@ -113,6 +113,8 @@ public class Settings extends AppCompatActivity
             case R.id.bt_settings_saveChanges:
                 final User modifiedUser = new User();
 
+                boolean doTheRedirection = true;
+
                 // ==== First name ====
                 // New first name
                 if(!this.et_settings_firstName.getText().toString().isEmpty())
@@ -141,18 +143,28 @@ public class Settings extends AppCompatActivity
                         if(!this.et_settings_newPassword.getText().toString().equals(this.et_settings_confirmNewPassword.getText().toString()))
                         {
                             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
                         }
                         // If password < 4 characters
                         else if(this.et_settings_newPassword.getText().toString().length() < 4)
                         {
                             Toast.makeText(getApplicationContext(), "Password is too short. Please enter a password with at least 4 characters",
                                     Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
                         }
                         // OK
                         else
                         {
                             modifiedUser.setPassword(this.et_settings_newPassword.getText().toString());
                         }
+                    }
+                    else if(this.et_settings_newPassword.getText().toString().isEmpty() != this.et_settings_confirmNewPassword.getText().toString().isEmpty())
+                    {
+                        Toast.makeText(getApplicationContext(), "Error : If you want to change the password, you must fill the two password fields", Toast.LENGTH_SHORT).show();
+
+                        doTheRedirection = false;
                     }
 
                     if(this.sw_settings_isSuperUser.isChecked())
@@ -191,23 +203,43 @@ public class Settings extends AppCompatActivity
                         if(this.et_settings_newPassword.getText().toString().equals(user.getPassword()))
                         {
                             Toast.makeText(getApplicationContext(), "New password cannot be the same as the actual one", Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
                         }
                         // If old password != actual password
                         else if(!this.et_settings_oldPassword.getText().toString().equals(user.getPassword()))
                         {
-                            Toast.makeText(getApplicationContext(), "Wrong password", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Wrong old password", Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
+                        }
+                        // If newPassword != confirmPassword
+                        else if(!this.et_settings_newPassword.getText().toString().equals(this.et_settings_confirmNewPassword.getText().toString()))
+                        {
+                            Toast.makeText(getApplicationContext(), "New and confirmed passwords are different", Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
                         }
                         // If password < 4 characters
                         else if(this.et_settings_newPassword.getText().toString().length() < 4)
                         {
                             Toast.makeText(getApplicationContext(), "Password is too short. Please enter a password with at least 4 characters",
                                     Toast.LENGTH_SHORT).show();
+
+                            doTheRedirection = false;
                         }
                         // Ok
                         else
                         {
                             modifiedUser.setPassword(this.et_settings_newPassword.getText().toString());
                         }
+                    }
+                    else if((this.et_settings_oldPassword.getText().toString().isEmpty() != this.et_settings_newPassword.getText().toString().isEmpty()) ||
+                            (this.et_settings_confirmNewPassword.getText().toString().isEmpty() != this.et_settings_oldPassword.getText().toString().isEmpty()))
+                    {
+                        Toast.makeText(getApplicationContext(), "Error : If you want to change your password, you must fill the three password fields", Toast.LENGTH_SHORT).show();
+
+                        doTheRedirection = false;
                     }
 
                     // ==== Login ====
@@ -246,15 +278,13 @@ public class Settings extends AppCompatActivity
                 }
 
                 // ==== Redirection ====
-                if((user.getPrivilege() == 2 && !user.getLoginMail().equals(userLoginToModify)) ||
-                        (user.getLoginMail().equals(userLoginToModify) && getIntent().getBooleanExtra("fromManageUsers", false)))
+                if(((user.getPrivilege() == 2 && !user.getLoginMail().equals(userLoginToModify)) ||
+                        (user.getLoginMail().equals(userLoginToModify) && getIntent().getBooleanExtra("fromManageUsers", false))) &&
+                        doTheRedirection)
                 {
-                    Intent manageUsers = new Intent(this, ManageUsers.class);
-                    manageUsers.putExtra("userData", this.user);
-                    startActivity(manageUsers);
-                    finishAffinity();
+                    finish();
                 }
-                else
+                else if(doTheRedirection)
                 {
                     Intent menu = new Intent(this, Menu.class);
                     menu.putExtra("userData", this.user);
@@ -280,9 +310,7 @@ public class Settings extends AppCompatActivity
                             {
                                 User userToDelete = dataBaseHelper.getUser(userLoginToModify);
                                 dataBaseHelper.deleteUser(userToDelete);
-                                manageUsers.putExtra("userData", user);
                                 finish();
-                                startActivity(manageUsers);
                             }
                         })
                         .setNegativeButton("Cancel", null)

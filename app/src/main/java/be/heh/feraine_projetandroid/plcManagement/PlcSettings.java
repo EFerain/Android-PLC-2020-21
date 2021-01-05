@@ -2,6 +2,7 @@ package be.heh.feraine_projetandroid.plcManagement;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +42,6 @@ public class PlcSettings extends AppCompatActivity
         this.et_plcSettings_slot = findViewById(R.id.et_plcSettings_slot);
 
         this.bt_plcSettings_connect = findViewById(R.id.bt_plcSettings_connect);
-        this.bt_plcSettings_backMenu = findViewById(R.id.bt_plcSettings_backMenu);
 
         // Saved data
         this.user = (User)getIntent().getSerializableExtra("userData");
@@ -117,14 +117,6 @@ public class PlcSettings extends AppCompatActivity
 
                         break;
                 }
-
-                break;
-
-            // ======== Back to menu ========
-            case R.id.bt_plcSettings_backMenu:
-                Intent menu = new Intent(this, Menu.class);
-                menu.putExtra("userData", user);
-                startActivity(menu);
 
                 break;
         }

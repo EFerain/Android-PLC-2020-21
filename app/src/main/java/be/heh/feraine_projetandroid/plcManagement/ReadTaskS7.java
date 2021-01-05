@@ -111,7 +111,7 @@ public class ReadTaskS7
     // ==== downloadOnPreExecute ====
     private void downloadOnPreExecute(int t)
     {
-        // TODO
+        // VOID
     }
 
     // ==== downloadOnProgressExecute ====
@@ -209,7 +209,7 @@ public class ReadTaskS7
     // ==== downloadOnPostExecute ====
     private void downloadOnPostExecute()
     {
-        // TODO
+        // VOID
     }
 
     /** ======== Classe anonyme ======== **/

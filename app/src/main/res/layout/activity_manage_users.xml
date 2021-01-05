@@ -37,16 +37,4 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.90" />
 
-    <!-- //// BuTTON //// -->
-    <!-- Return to the Menu -->
-    <Button
-        android:id="@+id/bt_manageUsers_backMenu"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:text="Return to the Menu"
-        android:onClick="onManageUsersClickManager" />
-
 </LinearLayout>

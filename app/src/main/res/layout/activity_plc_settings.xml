@@ -65,21 +65,4 @@
         android:layout_marginBottom="50dp"
         android:onClick="onPlcSettingsClickManager" />
 
-    <!-- BUTTON -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
-        <!-- Return to the Menu -->
-        <Button
-            android:id="@+id/bt_plcSettings_backMenu"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:onClick="onPlcSettingsClickManager"
-            android:text="Return to the Menu" />
-    </LinearLayout>
-
 </LinearLayout>
